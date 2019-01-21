@@ -44,6 +44,13 @@ function parseLink(link) {
 		thumbnail = {"url": "https://i.imgur.com/87cthQE.png"};
 	} else console.error('ERROR: unrecognized URL type!')
 
+	gamename = capitalize(gamename);
+	if (provider == "Humble Bundle" || provider == "Epic Games") {
+		gamename = gamename.replace(/-/gi, ' ');
+	} else {
+		gamename = gamename.replace(/_/gi, ' ');
+	}
+
 	return { 
 		embed: {
 			title: `${gamename} gratuit sur ${provider} !`,
@@ -97,7 +104,10 @@ module.exports = class SendMessage extends commando.Command {
 		let rich = parseLink(link);
 		this.client.guilds.map((__snflk, guild) => {
 			let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", msg.guild.systemChannelID));
-			chan.send(`${this.client.provider.get(guild, "mentionRole", "")}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich);
+			let mention = this.client.provider.get(guild, "mentionRole", "");
+			if (mention != "") mention += " : ";
+			chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
+				.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${guild.name}`));
 		});
 		return msg.channel.send("Message envoyé à tous les serveurs !")
 	}

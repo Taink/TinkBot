@@ -5,7 +5,7 @@ module.exports = class SetChannel extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'setchannel',
-			aliases: ['setc', 'setchan'],
+			aliases: ['setc', 'setchan', 'channel', 'chan'],
 			group: 'jeux-gratuits',
 			memberName: 'setchannel',
 			description: 'Définit le salon qui recevra les messages relatifs aux jeux gratuits.',

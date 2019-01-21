@@ -5,7 +5,7 @@ module.exports = class SetRole extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'setrole',
-			aliases: ['setr'],
+			aliases: ['setr', 'role'],
 			group: 'jeux-gratuits',
 			memberName: 'setrole',
 			description: 'Définit le rôle qui sera mentionné par le bot quand un nouveau jeu est disponible.',
@@ -29,9 +29,12 @@ module.exports = class SetRole extends commando.Command {
 	async run(msg, args) {
 		const role = args.role;
 		if (role.mentionable) {
-			this.client.provider.set(msg.guild, "mentionRole", `@${role.name} : `);
+			this.client.provider.set(msg.guild, "mentionRole", `${role}`);
 			return msg.channel.send(`Le rôle \`${role.name}\` sera maintenant mentionné quand un jeu gratuit est disponible.`);
-		} else {
+		} /*else if (role == "@everyone") {
+			this.client.provider.set(msg.guild, "mentionRole", `${role}`);
+			return msg.channel.send(`Le rôle \`${role.name}\` sera maintenant mentionné quand un jeu gratuit est disponible.`);
+		}*/ else {
 			return msg.channel.send("❌ Ce rôle n'est pas mentionnable !");
 		}
 	}

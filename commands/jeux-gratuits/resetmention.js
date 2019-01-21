@@ -5,7 +5,7 @@ module.exports = class SetRole extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'resetmention',
-			aliases: ['rm'],
+			aliases: ['resm', 'resetm', 'nomention'],
 			group: 'jeux-gratuits',
 			memberName: 'resetmention',
 			description: 'Supprime la mention devant les messages du bot.',
@@ -16,6 +16,7 @@ module.exports = class SetRole extends commando.Command {
 	} 
 	
 	async run(msg) {
-		this.client.provider.set(msg.guild, "mentionRole", '');
+		this.client.provider.remove(msg.guild, "mentionRole");
+		msg.channel.send('Il n\'y a maintenant plus de mention devant les messages du bot.')
 	}
 };
