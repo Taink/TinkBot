@@ -25,6 +25,8 @@ help|Envoie à l'auteur de la commande un message d'aide contenant l'ensemble de
 * Ce bot utilise `Discord.js` (et son module `-commando`) ainsi que la lib `sqlite`, tous disponibles sur npm, donc merci à leurs développeurs respectifs.
 * Les rôles @everyone et @here ne semblent pas fonctionner, je vais tenter de comprendre pourquoi mais d'ici là il faudra faire sans.
 * Le code source est disponible ici, sur Github, avant tout dans un souci de transparence donc je ne fournirai aucun support à qui que ce soit qui reprend simplement le code.
+* Certaines autorisations ne sont techniquement pas nécessaires, mais par sécurité je recommanderai de laisser les autorisations du bot telles quelles.
+* Beaucoup d'éléments ne sont pas traduits, c'est dommage mais j'ai pas trouvé le temps de tout traduire. Si quelqu'un veut le faire, qu'il fork ce repo et fasse une pull request, je serai ravi de voir ce que ça donne.
 * Je n'ai pas beaucoup commenté le code, je le ferai peut-être plus tard mais bon c'est comme ça.
 * Il se peut que j'envoie parfois (c'est vraiment très rare) des messages qui n'ont pas trait directement aux jeux gratuits mais plutôt à des news en rapport, ces messages ne mentionneront jamais et ont simplement pour but de tenir les gens au courant de certains évènements.
 * J'utilise une série de commandes réservées à mon usage personnel afin d'envoyer les messages ([sendannouncement](https://github.com/Taink/TinkBot/blob/master/commands/jeux-gratuits/sendannouncement.js) et [sendmessage](https://github.com/Taink/TinkBot/blob/master/commands/jeux-gratuits/sendmessage.js)), car ils ne sont pas automatiques. Si cela vous pose un problème, n'utilisez pas le bot.
