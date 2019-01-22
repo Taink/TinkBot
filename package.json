@@ -17,7 +17,7 @@
 	"license": "MIT",
 	"author": {
 		"name": "Taink",
-		"https://www.github.com/Taink/"
+		"url": "https://www.github.com/Taink/"
 	},
 	"main": "index.js",
 	"repository": {
