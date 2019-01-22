@@ -42,3 +42,4 @@ Thumbs.db
 bin/
 temp/
 cfg/
+node_modules/
