@@ -1,0 +1,37 @@
+{
+	"name": "tinkbot",
+	"version": "0.1.0",
+	"description": "A discord bot notifying when a game is available for free. Currently only available in french.",
+	"keywords": [
+		"discord",
+		"bot",
+		"free games",
+		"gaming",
+		"free",
+		"games"
+	],
+	"homepage": "https://github.com/Taink/TinkBot#readme",
+	"bugs": {
+		"url": "https://github.com/Taink/TinkBot/issues"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Taink",
+		"https://www.github.com/Taink/"
+	},
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Taink/TinkBot.git"
+	},
+	"scripts": {
+		"launch": "node index.js"
+	},
+	"dependencies": {
+		"common-tags": "^1.8.0",
+		"discord.js": "^11.4.2",
+		"discord.js-commando": "^0.10.0",
+		"sqlite": "^3.0.0"
+	},
+	"private": true
+}
