@@ -42,4 +42,8 @@ Thumbs.db
 bin/
 temp/
 cfg/
+
+# NPM-related files #
+#####################
 node_modules/
+package-lock.json
