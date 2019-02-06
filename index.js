@@ -56,8 +56,8 @@ bot.setProvider(
 
 bot.setInterval(size => {
 	bot.user.setPresence({ game: { name: `présent sur ${bot.guilds.size} serveurs, such wow` }, status: 'online' });
-	console.log("Refreshing server count...");
-}, 60000, ); // 60000 ms -> 1min
+	console.log(`Refreshing server count... (${bot.guilds.size})`);
+}, 180000, ); // 180000 ms -> 3min
 
 bot.registry
 	.registerGroups([
