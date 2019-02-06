@@ -111,7 +111,7 @@ module.exports = class DebugSendMessage extends commando.Command {
 		let chan = this.client.channels.get(id);
 		let mention = this.client.provider.get(chan.guild, "mentionRole", "");
 		if (mention != "") mention += " : ";
-		chan.send(`Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
+		chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
 			.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${chan.guild}`));
 	}
 };

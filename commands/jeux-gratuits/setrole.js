@@ -31,10 +31,10 @@ module.exports = class SetRole extends commando.Command {
 		if (role.mentionable) {
 			this.client.provider.set(msg.guild, "mentionRole", `${role}`);
 			return msg.channel.send(`Le rôle \`${role.name}\` sera maintenant mentionné quand un jeu gratuit est disponible.`);
-		} /*else if (role == "@everyone") {
+		} else if (role == "@everyone") {
 			this.client.provider.set(msg.guild, "mentionRole", `${role}`);
 			return msg.channel.send(`Le rôle \`${role.name}\` sera maintenant mentionné quand un jeu gratuit est disponible.`);
-		}*/ else {
+		} else {
 			return msg.channel.send("❌ Ce rôle n'est pas mentionnable !");
 		}
 	}
