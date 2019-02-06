@@ -12,6 +12,6 @@ module.exports = class SendAnnouncement extends commando.Command {
 	} 
 	
 	async run(msg) {
-		this.client.generateInvite(268651536).then(invite => msg.channel.send(invite));
+		this.client.generateInvite(268651536).then(invite => msg.channel.send(`Vous pouvez ajouter le bot à votre serveur via ce lien : ${invite}`));
 	}
 };

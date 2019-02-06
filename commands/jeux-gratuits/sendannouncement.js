@@ -29,7 +29,7 @@ module.exports = class SendAnnouncement extends commando.Command {
 	async run(msg, args) {
 		const mes = args.message;
 		this.client.guilds.map((__snflk, guild) => {
-			let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", msg.guild.systemChannelID));
+			let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
 			chan.send(mes);
 		});
 		return msg.channel.send("Message envoyé à tous les serveurs !")
