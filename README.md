@@ -16,6 +16,7 @@ Commande | Effet
 prefix|Permet de modifier le préfixe des commandes, par défaut il faut soit mentionner le bot soit écrire `t!` avant la commande
 help|Envoie à l'auteur de la commande un message d'aide contenant l'ensemble des commandes utilisables
 [invite](https://github.com/Taink/TinkBot/blob/master/commands/autres/invite.js)|Génère un lien permettant d'inviter le bot sur son serveur (ou un serveur sur lequel on a la permission "Gérer le serveur")
+[github](https://github.com/Taink/TinkBot/blob/master/commands/autres/github.js)|Envoie un lien dans le channel redirigeant vers ce répertoire Github.
 
 # Notes
 * Le préfixe par défaut est `t!`
