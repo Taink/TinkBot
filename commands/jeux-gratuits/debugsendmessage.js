@@ -78,7 +78,7 @@ module.exports = class DebugSendMessage extends commando.Command {
 		super(client, {
 			name: 'debugsendmessage',
 			aliases: ['debugmessage', 'debugmes', 'dsendmessage', 'dsendm'],
-			group: 'debug',
+			group: 'jeux-gratuits',
 			memberName: 'debugsendmessage',
 			description: 'Commande utilisée pour envoyer le message debug (Owner Only)',
 			examples: ['debugsendmessage https://store.steampowered.com/app/268910/Cuphead/'],

@@ -6,7 +6,7 @@ module.exports = class DebugSendAnnouncement extends commando.Command {
 		super(client, {
 			name: 'debugsendannouncement',
 			aliases: ['debugannouncement', 'dsendannouncement', 'dsa', 'debugsenda', 'dsenda'],
-			group: 'debug',
+			group: 'jeux-gratuits',
 			memberName: 'debugsendannouncement',
 			description: 'Commande utilisée pour envoyer une anonce debug (Owner Only)',
 			examples: ['debugsendannouncement [message]'],
