@@ -23,6 +23,6 @@ module.exports = class SetAdmin extends commando.Command {
 	} 
 	
 	async run(msg, args) {
-			return msg.channel.send(`${msg.author}, tu es ?`);
+			return msg.channel.send(`${msg.author}, tu es ? T'as cru que tu pouvais modifier les perms de n'importe qui comme ça ?`);
 	}
 };
