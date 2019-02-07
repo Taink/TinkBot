@@ -68,6 +68,11 @@ function parseLink(link) {
 					name: "Le jeu m'appartiendra-t-il pour toujours ?",
 					value: `Oui, le jeu reste dans votre bibliothèque de jeux, même après la date limite. Il faut juste "l'acheter" une fois sur ${provider}.`,
 					inline: false
+				},
+				{
+					name: "Moi aussi je veux être notifié sur mon serveur!",
+					value: "Aucun problème, c'est à ça que sert la commande t!invite. Pour voir le code du bot, faites t!github."
+					inline: false
 				}
 			]
 		}
@@ -102,12 +107,17 @@ module.exports = class SendMessage extends commando.Command {
 	async run(msg, args) {
 		const link = args.link;
 		let rich = parseLink(link);
-		this.client.guilds.map((__snflk, guild) => {
-			let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", msg.guild.systemChannelID));
-			let mention = this.client.provider.get(guild, "mentionRole", "");
-			if (mention != "") mention += " : ";
-			chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
-				.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${guild.name}`));
+		let guilds = this.client.guilds.map((guild) => {
+			if (guild.available) {
+				let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
+				let mention = this.client.provider.get(guild, "mentionRole", "");
+				if (mention != "") mention += " : ";
+				chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
+					.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${guild}`));
+				console.log(`Message successfully sent to "${guild}"`);
+			} else {
+				console.log(`Guild "${guild}" is unavailable`);
+			}
 		});
 		return msg.channel.send("Message envoyé à tous les serveurs !")
 	}

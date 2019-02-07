@@ -67,6 +67,11 @@ function parseLink(link) {
 					name: "Le jeu m'appartiendra-t-il pour toujours ?",
 					value: `Oui, le jeu reste dans votre bibliothèque de jeux, même après la date limite. Il faut juste "l'acheter" une fois sur ${provider}.`,
 					inline: false
+				},
+				{
+					name: "Moi aussi je veux être notifié sur mon serveur!",
+					value: "Aucun problème, c'est à ça que sert la commande t!invite. Pour voir le code du bot, faites t!github."
+					inline: false
 				}
 			]
 		}
@@ -77,11 +82,11 @@ module.exports = class DebugSendMessage extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'debugsendmessage',
-			aliases: ['debugmessage', 'debugmes', 'dsendmessage', 'dsendm'],
+			aliases: ['debugmessage', 'debugmes', 'dsendmessage', 'dsendm', 'debugsendm'],
 			group: 'jeux-gratuits',
 			memberName: 'debugsendmessage',
 			description: 'Commande utilisée pour envoyer le message debug (Owner Only)',
-			examples: ['debugsendmessage https://store.steampowered.com/app/268910/Cuphead/'],
+			examples: ['debugsendmessage https://store.steampowered.com/app/268910/Cuphead/ 511623096633917458'],
 			clientPermissions: ['MENTION_EVERYONE'],
 			guarded: true,
 			hidden: true,
@@ -96,7 +101,7 @@ module.exports = class DebugSendMessage extends commando.Command {
 				},
 				{
 					key: 'id',
-					label: 'channelid',
+					label: 'guildid',
 					prompt: 'Quel est l\'id du channel où envoyer le message ?',
 					type: 'string'
 				}
@@ -108,10 +113,17 @@ module.exports = class DebugSendMessage extends commando.Command {
 		const link = args.link;
 		const id = args.id;
 		let rich = parseLink(link);
-		let chan = this.client.channels.get(id);
-		let mention = this.client.provider.get(chan.guild, "mentionRole", "");
-		if (mention != "") mention += " : ";
-		chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
-			.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${chan.guild}`));
+		let guild = this.client.guilds.get(id);
+		if (guild.available) {
+			let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
+			let mention = this.client.provider.get(guild, "mentionRole", "");
+			if (mention != "") mention += " : ";
+			chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
+				.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${guild}`));
+			console.log(`Message successfully sent to "${guild}"`);
+		} else {
+			console.log(`Guild "${guild}" is unavailable`);
+		}
+		return msg.channel.send("Message envoyé au serveur");
 	}
 };
