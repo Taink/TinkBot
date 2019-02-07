@@ -3,19 +3,19 @@ const commando = require("discord.js-commando");
 const path = require("path");
 const oneLine = require('common-tags').oneLine;
 const sqlite = require('sqlite');
-const bot = new commando.Client({
+const client = new commando.Client({
 	owner: "277518283576705034",
 	prefix: "t!",
 	unknownCommandResponse: false
 });
 
-bot
+client
 	.on('error', console.error)
 	.on('warn', console.warn)
 	.on('debug', console.log)
 	.on('ready', () => {
-		console.log(`Bot launched as ${bot.user.tag} (${bot.user.id})`);
-		bot.user.setPresence({ game: { name: `présent sur ${bot.guilds.size} serveurs, such wow` }, status: 'online' });
+		console.log(`Bot launched as ${client.user.tag} (${client.user.id})`);
+		client.user.setPresence({ game: { name: `présent sur ${client.guilds.size} serveurs, such wow` }, status: 'online' });
 	})
 	.on('disconnect', () => { console.warn('Disconnected!'); })
 	.on('reconnecting', () => { console.warn('Reconnecting...'); })
@@ -50,16 +50,16 @@ bot
 		`);
 });
 
-bot.setProvider(
+client.setProvider(
     sqlite.open(path.join(__dirname, 'database.sqlite3')).then(db => new commando.SQLiteProvider(db))
 ).catch(console.error);
 
-bot.setInterval(size => {
-	bot.user.setPresence({ game: { name: `présent sur ${bot.guilds.size} serveurs, such wow` }, status: 'online' });
-	console.log(`Refreshing server count... (${bot.guilds.size})`);
+client.setInterval(size => {
+	client.user.setPresence({ game: { name: `présent sur ${client.guilds.size} serveurs, such wow` }, status: 'online' });
+	console.log(`Refreshing server count... (${client.guilds.size})`);
 }, 180000, ); // 180000 ms -> 3min
 
-bot.registry
+client.registry
 	.registerGroups([
 		['jeux-gratuits', 'Jeux gratuits'],
 		['autres', 'Autres']
@@ -67,4 +67,4 @@ bot.registry
 	.registerDefaults()
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
-bot.login(cfg.token);
+client.login(cfg.token);
