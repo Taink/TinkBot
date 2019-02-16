@@ -70,7 +70,7 @@ function parseLink(link) {
 				},
 				{
 					name: "Moi aussi je veux être notifié sur mon serveur!",
-					value: "Aucun problème, c'est à ça que sert la commande t!invite. Pour voir le code du bot, faites t!github."
+					value: "Aucun problème, c'est à ça que sert la commande t!invite. Pour voir le code du bot, faites t!github.",
 					inline: false
 				}
 			]
@@ -87,7 +87,6 @@ module.exports = class DebugSendMessage extends commando.Command {
 			memberName: 'debugsendmessage',
 			description: 'Commande utilisée pour envoyer le message debug (Owner Only)',
 			examples: ['debugsendmessage https://store.steampowered.com/app/268910/Cuphead/ 511623096633917458'],
-			clientPermissions: ['MENTION_EVERYONE'],
 			guarded: true,
 			hidden: true,
 			ownerOnly: true,
@@ -118,8 +117,12 @@ module.exports = class DebugSendMessage extends commando.Command {
 			let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
 			let mention = this.client.provider.get(guild, "mentionRole", "");
 			if (mention != "") mention += " : ";
-			chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich)
-				.catch(err => msg.channel.send(`\`${err}\` pour le serveur ${guild}`));
+			try {
+				chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich);
+			} catch(err) {
+				msg.channel.send(`\`${err}\` pour le serveur ${guild}`);
+				console.log(err);
+			}
 			console.log(`Message successfully sent to "${guild}"`);
 		} else {
 			console.log(`Guild "${guild}" is unavailable`);
