@@ -14,6 +14,7 @@ function parseLink(link) {
 	let gameUrl = new URL(link);
 	let reSteam = /^\/app\/([0-9]+)\/(\w+)\/$/i;
 	let reEpic = /^\/store\/[A-Za-z0-9_-]{2,}\/product\/([A-Za-z0-9_-]+)\/home$/i;
+	let reDiscord = /^\/store\/skus\/([0-9]+)\/([A-Za-z0-9_-]+)$/i;
 	let path = gameUrl.pathname;
 	let gamename, provider, thumbnail;
 
@@ -22,15 +23,18 @@ function parseLink(link) {
 		provider = "Humble Bundle";
 		thumbnail = {"url": "https://i.imgur.com/hZVyC1Y.png"};
 		//console.log('The name of your game is: ' + gamename);
+		// TODO: support custom thumbnail for Humble Bundle using HTTPS requests (most probably)
 	} else if (gameUrl.href.startsWith("https://www.gog.com/game/")) { // GOG game
 		gamename = path.substr(6);
 		provider = "GOG";
 		thumbnail = {"url": "https://i.imgur.com/fMC8MRV.png"};
 		//console.log('The name of your game is: ' + gamename);
+		// TODO: support custom thumbnail for GOG (games) using HTTPS requests (most probably)
 	} else if (gameUrl.href.startsWith("https://www.gog.com/movie/")) { // GOG movie
 		gamename = path.substr(7);
 		provider = "GOG";
 		thumbnail = {"url": "https://i.imgur.com/fMC8MRV.png"};
+		// TODO: support custom thumbnail for GOG (movies) using HTTPS requests (most probably)
 	} else if (gameUrl.href.startsWith("https://store.steampowered.com/app/")) { // Steam
 		gamename = reSteam.exec(path)[2];
 		let appid = reSteam.exec(path)[1];
@@ -42,10 +46,17 @@ function parseLink(link) {
 		gamename = reEpic.exec(path)[1];
 		provider = "Epic Games";
 		thumbnail = {"url": "https://i.imgur.com/87cthQE.png"};
+		// TODO: support custom thumbnail for the Epic Games Store using HTTPS requests (most probably)
+	} else if (gameUrl.href.startsWith("https://discordapp.com/store/skus/")) {
+		gamename = reDiscord.exec(path)[2];
+		// let appid = reDiscord.exec(path)[1];
+		provider = "Discord";
+		thumbnail = {"url": "https://i.imgur.com/RxdEbbQ.png"}; // from https://discordapp.com/branding
+		// TODO: support custom thumbnail for Discord using HTTPS requests (most probably)
 	} else console.error('ERROR: unrecognized URL type!')
 
 	gamename = capitalize(gamename);
-	if (provider == "Humble Bundle" || provider == "Epic Games") {
+	if (provider == "Humble Bundle" || provider == "Epic Games" || provider == "Discord") {
 		gamename = gamename.replace(/-/gi, ' ');
 	} else {
 		gamename = gamename.replace(/_/gi, ' ');
@@ -106,7 +117,7 @@ module.exports = class SendMessage extends commando.Command {
 	async run(msg, args) {
 		const link = args.link;
 		let rich = parseLink(link);
-		let guilds = this.client.guilds.map((guild) => {
+		this.client.guilds.map((guild) => {
 			if (guild.available) {
 				let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
 				let mention = this.client.provider.get(guild, "mentionRole", "");

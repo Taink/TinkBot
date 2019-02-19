@@ -15,6 +15,7 @@ client
 	.on('debug', console.log)
 	.on('ready', () => {
 		console.log(`Bot launched as ${client.user.tag} (${client.user.id})`);
+		console.log(`Current server count: ${client.guilds.size}`)
 		client.user.setPresence({ game: { name: `présent sur ${client.guilds.size} serveurs, such wow` }, status: 'online' });
 	})
 	.on('disconnect', () => { console.warn('Disconnected!'); })
