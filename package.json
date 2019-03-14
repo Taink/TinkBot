@@ -25,7 +25,7 @@
 		"url": "https://github.com/Taink/TinkBot.git"
 	},
 	"scripts": {
-		"launch": "node index.js"
+		"start": "node index.js"
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
