@@ -1,9 +1,9 @@
-const commando = require("discord.js-commando");
+const Commando = require("discord.js-commando");
 const sqlite = require("sqlite");
 const { RichEmbed } = require("discord.js");
 const parseLink = require("../../src/parselink.js");
 
-module.exports = class SendMessage extends commando.Command {
+module.exports = class SendMessage extends Commando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'sendmessage',
