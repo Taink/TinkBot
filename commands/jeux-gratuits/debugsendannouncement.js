@@ -1,5 +1,4 @@
-const commando = require("discord.js-commando");
-const sqlite = require("sqlite");
+const commando = require('discord.js-commando');
 
 module.exports = class DebugSendAnnouncement extends commando.Command {
 	constructor(client) {
@@ -20,23 +19,23 @@ module.exports = class DebugSendAnnouncement extends commando.Command {
 					key: 'channel',
 					label: 'channelID',
 					prompt: 'Quel est l\'id du channel?',
-					type: 'string'
+					type: 'string',
 				},
 				{
 					key: 'message',
 					label: 'text',
 					prompt: 'Quel message envoyer ?',
 					infinite: true,
-					type: 'string'
-				}
-			]
+					type: 'string',
+				},
+			],
 		});
-	} 
-	
+	}
+
 	async run(msg, args) {
 		const id = args.channel;
 		const mes = args.message;
-		let chan = this.client.channels.get(id);
+		const chan = this.client.channels.get(id);
 		chan.send(mes);
 	}
 };

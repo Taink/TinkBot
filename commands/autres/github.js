@@ -1,4 +1,4 @@
-const commando = require("discord.js-commando");
+const commando = require('discord.js-commando');
 
 module.exports = class SendAnnouncement extends commando.Command {
 	constructor(client) {
@@ -8,11 +8,11 @@ module.exports = class SendAnnouncement extends commando.Command {
 			group: 'autres',
 			memberName: 'github',
 			description: 'Utilisez cette commande pour obtenir un lien vers le github de ce bot',
-			guarded: true
+			guarded: true,
 		});
-	} 
-	
+	}
+
 	async run(msg) {
-		msg.channel.send("Github du bot : https://github.com/Taink/TinkBot");
+		msg.channel.send('Github du bot : https://github.com/Taink/TinkBot');
 	}
 };

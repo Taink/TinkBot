@@ -1,5 +1,4 @@
-const commando = require("discord.js-commando");
-const sqlite = require("sqlite");
+const commando = require('discord.js-commando');
 
 module.exports = class SendAnnouncement extends commando.Command {
 	constructor(client) {
@@ -20,17 +19,17 @@ module.exports = class SendAnnouncement extends commando.Command {
 					label: 'text',
 					prompt: 'Quel message envoyer ?',
 					infinite: true,
-					type: 'string'
-				}
-			]
+					type: 'string',
+				},
+			],
 		});
-	} 
-	
+	}
+
 	async run(msg, args) {
 		const mes = args.message;
 		this.client.guilds.map((__snflk, guild) => {
 			if (guild.available) {
-				let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
+				const chan = this.client.channels.get(this.client.provider.get(guild, 'freeChannel', guild.systemChannelID));
 				try {
 					chan.send(mes);
 					console.log(`Message successfully sent to "${guild}"`);
@@ -42,6 +41,6 @@ module.exports = class SendAnnouncement extends commando.Command {
 				console.log(`Guild "${guild}" is unavailable`);
 			}
 		});
-		return msg.channel.send("Message envoyé à tous les serveurs !")
+		return msg.channel.send('Message envoyé à tous les serveurs !');
 	}
 };

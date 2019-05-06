@@ -1,5 +1,5 @@
-const commando = require("discord.js-commando");
-const sqlite = require("sqlite");
+const commando = require('discord.js-commando');
+const sqlite = require('sqlite');
 
 module.exports = class SetRole extends commando.Command {
 	constructor(client) {
@@ -11,12 +11,12 @@ module.exports = class SetRole extends commando.Command {
 			description: 'Supprime la mention devant les messages du bot.',
 			userPermissions: ['MANAGE_ROLES'],
 			guarded: true,
-			guildOnly: true
+			guildOnly: true,
 		});
-	} 
-	
+	}
+
 	async run(msg) {
-		this.client.provider.remove(msg.guild, "mentionRole");
-		msg.channel.send('Il n\'y a maintenant plus de mention devant les messages du bot.')
+		this.client.provider.remove(msg.guild, 'mentionRole');
+		msg.channel.send('Il n\'y a maintenant plus de mention devant les messages du bot.');
 	}
 };

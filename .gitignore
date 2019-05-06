@@ -47,3 +47,7 @@ cfg/
 #####################
 node_modules/
 package-lock.json
+
+# Eslint file #
+###############
+.eslintrc.json

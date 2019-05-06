@@ -1,5 +1,4 @@
-const commando = require("discord.js-commando");
-const sqlite = require("sqlite");
+const commando = require('discord.js-commando');
 
 module.exports = class SetChannel extends commando.Command {
 	constructor(client) {
@@ -19,17 +18,17 @@ module.exports = class SetChannel extends commando.Command {
 					key: 'channel',
 					label: 'textchannel',
 					prompt: 'Dans quel salon voulez-vous envoyer les messages relatifs aux jeux gratuits ?',
-					error: "L'argument spécifié n'est pas un salon valide ! Veuillez en spécifier un.",
-					type: 'channel'
-				}
-			]
+					error: 'L\'argument spécifié n\'est pas un salon valide ! Veuillez en spécifier un.',
+					type: 'channel',
+				},
+			],
 		});
-	} 
-	
+	}
+
 	async run(msg, args) {
 		const chan = args.channel;
-		if (chan.guild.available && (chan.type == "text")) {
-			this.client.provider.set(msg.guild, "freeChannel", chan.id);
+		if (chan.guild.available && (chan.type == 'text')) {
+			this.client.provider.set(msg.guild, 'freeChannel', chan.id);
 			return msg.channel.send(`Les messages à propos des jeux gratuits seront maintenant envoyés dans le salon ${chan}.`);
 		}
 	}

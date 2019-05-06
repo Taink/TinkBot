@@ -1,7 +1,5 @@
-const Commando = require("discord.js-commando");
-const sqlite = require("sqlite");
-const { RichEmbed } = require("discord.js");
-const parseLink = require("../../src/parselink.js");
+const Commando = require('discord.js-commando');
+const parseLink = require('../../src/parselink.js');
 
 module.exports = class SendMessage extends Commando.Command {
 	constructor(client) {
@@ -21,20 +19,20 @@ module.exports = class SendMessage extends Commando.Command {
 					key: 'link',
 					label: 'linkstring',
 					prompt: 'Quel est le lien à envoyer ?',
-					type: 'string'
-				}
-			]
+					type: 'string',
+				},
+			],
 		});
-	} 
-	
+	}
+
 	async run(msg, args) {
 		const link = args.link;
-		let rich = parseLink(link);
+		const rich = parseLink(link);
 		this.client.guilds.map((guild) => {
 			if (guild.available) {
-				let chan = this.client.channels.get(this.client.provider.get(guild, "freeChannel", guild.systemChannelID));
-				let mention = this.client.provider.get(guild, "mentionRole", "");
-				if (mention != "") mention += " : ";
+				const chan = this.client.channels.get(this.client.provider.get(guild, 'freeChannel', guild.systemChannelID));
+				let mention = this.client.provider.get(guild, 'mentionRole', '');
+				if (mention != '') mention += ' : ';
 				try {
 					chan.send(`${mention}Nouveau jeu gratuit disponible à l'adresse suivante : ${link}`, rich);
 					console.log(`Message successfully sent to "${guild}"`);
@@ -46,6 +44,6 @@ module.exports = class SendMessage extends Commando.Command {
 				console.log(`Guild "${guild}" is unavailable`);
 			}
 		});
-		return msg.channel.send("Message envoyé à tous les serveurs !")
+		return msg.channel.send('Message envoyé à tous les serveurs !');
 	}
 };
