@@ -64,8 +64,17 @@ client.registry
 	.registerGroups([
 		['jeux-gratuits', 'Jeux gratuits'],
 		['autres', 'Autres'],
+		['util', 'Utils'],
 	])
-	.registerDefaults()
-	.registerCommandsIn(path.join(__dirname, 'commands'));
+	.registerCommandsIn(path.join(__dirname, 'commands'))
+	.registerDefaultTypes()
+	.registerDefaultCommands({
+		help: true,
+		prefix: true,
+		eval: false,
+		ping: true,
+		unknownCommand: false,
+		commandState: false,
+	});
 
 client.login(cfg.token);
