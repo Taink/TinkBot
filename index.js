@@ -67,14 +67,6 @@ client.registry
 		['util', 'Utils'],
 	])
 	.registerCommandsIn(path.join(__dirname, 'commands'))
-	.registerDefaultTypes()
-	.registerDefaultCommands({
-		help: true,
-		prefix: true,
-		eval: false,
-		ping: true,
-		unknownCommand: false,
-		commandState: false,
-	});
+	.registerDefaults();
 
 client.login(cfg.token);
