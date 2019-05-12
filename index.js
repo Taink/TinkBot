@@ -66,7 +66,15 @@ client.registry
 		['autres', 'Autres'],
 		['util', 'Utils'],
 	])
-	.registerCommandsIn(path.join(__dirname, 'commands'))
-	.registerDefaults();
+	.registerDefaultTypes()
+	.registerDefaultCommands({
+		help: true,
+		prefix: true,
+		eval: false,
+		ping: true,
+		unknownCommand: false,
+		commandState: false,
+	})
+	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.login(cfg.token);
