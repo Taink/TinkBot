@@ -1,6 +1,6 @@
 {
 	"name": "tinkbot",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A discord bot notifying when a game is available for free. Currently only available in french.",
 	"keywords": [
 		"discord",
