@@ -17,7 +17,7 @@ module.exports = class SendMessage extends Commando.Command {
 
 			args: [
 				{
-					key: 'link',
+					key: 'links',
 					label: 'linkstring',
 					prompt: 'Quel est le lien à envoyer ?',
 					type: 'string',
