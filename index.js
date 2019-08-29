@@ -55,7 +55,7 @@ client.setProvider(
 	sqlite.open(path.join(__dirname, 'database.sqlite3')).then(db => new commando.SQLiteProvider(db))
 ).catch(console.error);
 
-client.setInterval(size => {
+client.setInterval(() => {
 	client.user.setPresence({ game: { name: `présent sur ${client.guilds.size} serveurs, such wow` }, status: 'online' });
 	console.log(`Refreshing server count... (${client.guilds.size})`);
 }, 180000,); // 180000 ms -> 3min
