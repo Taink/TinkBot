@@ -49,16 +49,27 @@ client
 			${enabled ? 'enabled' : 'disabled'}
 			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
 		`);
+	})
+	.on('guildCreate', (guild) => {
+		console.log(oneLine`
+			Joining new server
+			(${guild.name}),
+			refreshing server count...
+			(${client.guilds.size})
+		`);
+		client.user.setPresence({
+			status: 'online',
+			afk: false,
+			game: {
+				name: `${client.guilds.size} serveurs, such wow`,
+				type: 'WATCHING',
+			},
+		}).then(console.log).catch(console.error);
 	});
 
 client.setProvider(
 	sqlite.open(path.join(__dirname, 'database.sqlite3')).then(db => new commando.SQLiteProvider(db))
 ).catch(console.error);
-
-client.setInterval(() => {
-	client.user.setPresence({ game: { name: `présent sur ${client.guilds.size} serveurs, such wow` }, status: 'online' });
-	console.log(`Refreshing server count... (${client.guilds.size})`);
-}, 180000,); // 180000 ms -> 3min
 
 client.registry
 	.registerGroups([
