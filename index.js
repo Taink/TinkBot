@@ -12,7 +12,10 @@ const client = new commando.Client({
 client
 	.on('error', console.error)
 	.on('warn', console.warn)
-	.on('debug', console.log)
+	.on('debug', info => {
+		if (info.startsWith('[ws]')) return;
+		console.log(info);
+	})
 	.on('ready', () => {
 		console.log(`Bot launched as ${client.user.tag} (${client.user.id})`);
 		console.log(`Current server count: ${client.guilds.size}`);
