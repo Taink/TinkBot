@@ -9,7 +9,7 @@ function capitalize(string) {
 module.exports = function parseLink(link) {
 	const gameUrl = new URL(link);
 	const reSteam = /^\/app\/([0-9]+)\/(\w+)\/$/i;
-	const reEpic = /^\/store\/[A-Za-z0-9_-]{2,}\/(?:product|bundles)\/([A-Za-z0-9_-]+)(?:\/home)?$/i;
+	const reEpic = /^\/store\/[A-Za-z0-9_-]{2,}\/(?:product|bundles)\/([A-Za-z0-9_-]+)(?:\/[A-Za-z0-9_-]+)?$/i;
 	const reDiscord = /^\/store\/skus\/([0-9]+)\/([A-Za-z0-9_-]+)$/i;
 	const path = gameUrl.pathname;
 	let gamename, provider, thumbnail;
