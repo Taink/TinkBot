@@ -40,7 +40,7 @@ module.exports = class SendMessage extends (
 			embeds.push(parseLink(link));
 		});
 
-		this.client.guilds.map((guild) => {
+		this.client.guilds.forEach((guild) => {
 			if (guild.available) {
 				const chan = this.client.channels.get(
 					this.client.provider.get(
@@ -78,8 +78,9 @@ module.exports = class SendMessage extends (
 						.catch(console.error);
 					console.log(`Message successfully sent to "${guild}"`);
 				} catch (err) {
+					console.log(`${err} pour le serveur ${guild}`);
+					if (!chan) return;
 					msg.channel.send(`\`${err}\` pour le serveur ${guild}`);
-					console.log(err);
 				}
 			} else {
 				console.log(`Guild "${guild}" is unavailable`);
