@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 
-module.exports = class SendAnnouncement extends (
+module.exports = class Github extends (
 	Command
 ) {
 	constructor(client) {

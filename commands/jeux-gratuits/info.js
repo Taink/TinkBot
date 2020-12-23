@@ -4,7 +4,7 @@ function getRandomColor() {
 	return Math.floor(Math.random() * 16777215);
 }
 
-module.exports = class SendAnnouncement extends (
+module.exports = class Info extends (
 	Command
 ) {
 	constructor(client) {
