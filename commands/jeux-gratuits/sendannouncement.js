@@ -1,13 +1,16 @@
-const commando = require('discord.js-commando');
+const { Command } = require('discord.js-commando');
 
-module.exports = class SendAnnouncement extends commando.Command {
+module.exports = class SendAnnouncement extends (
+	Command
+) {
 	constructor(client) {
 		super(client, {
 			name: 'sendannouncement',
 			aliases: ['senda', 'sendann'],
 			group: 'jeux-gratuits',
 			memberName: 'sendannouncement',
-			description: 'Commande utilisée pour envoyer le message (Owner Only)',
+			description:
+				'Commande utilisée pour envoyer le message (Owner Only)',
 			examples: ['sendannouncement Hello World!'],
 			guarded: true,
 			hidden: true,
@@ -29,11 +32,17 @@ module.exports = class SendAnnouncement extends commando.Command {
 		const mes = args.message;
 		this.client.guilds.map((__snflk, guild) => {
 			if (guild.available) {
-				const chan = this.client.channels.get(this.client.provider.get(guild, 'freeChannel', guild.systemChannelID));
+				const chan = this.client.channels.get(
+					this.client.provider.get(
+						guild,
+						'freeChannel',
+						guild.systemChannelID
+					)
+				);
 				try {
 					chan.send(mes);
 					console.log(`Message successfully sent to "${guild}"`);
-				} catch(e) {
+				} catch (e) {
 					msg.channel.send(`\`${e}\` pour le serveur ${guild}`);
 					console.log(e);
 				}

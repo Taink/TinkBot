@@ -1,13 +1,16 @@
-const commando = require('discord.js-commando');
+const { Command } = require('discord.js-commando');
 
-module.exports = class SetChannel extends commando.Command {
+module.exports = class SetChannel extends (
+	Command
+) {
 	constructor(client) {
 		super(client, {
 			name: 'setchannel',
 			aliases: ['setc', 'setchan', 'channel', 'chan'],
 			group: 'jeux-gratuits',
 			memberName: 'setchannel',
-			description: 'Définit le salon qui recevra les messages relatifs aux jeux gratuits.',
+			description:
+				'Définit le salon qui recevra les messages relatifs aux jeux gratuits.',
 			examples: ['setchannel #jeux-gratuits'],
 			userPermissions: ['MANAGE_CHANNELS', 'MENTION_EVERYONE'],
 			guarded: true,
@@ -17,8 +20,10 @@ module.exports = class SetChannel extends commando.Command {
 				{
 					key: 'channel',
 					label: 'textchannel',
-					prompt: 'Dans quel salon voulez-vous envoyer les messages relatifs aux jeux gratuits ?',
-					error: 'L\'argument spécifié n\'est pas un salon valide ! Veuillez en spécifier un.',
+					prompt:
+						'Dans quel salon voulez-vous envoyer les messages relatifs aux jeux gratuits ?',
+					error:
+						"L'argument spécifié n'est pas un salon valide ! Veuillez en spécifier un.",
 					type: 'channel',
 				},
 			],
@@ -27,9 +32,11 @@ module.exports = class SetChannel extends commando.Command {
 
 	async run(msg, args) {
 		const chan = args.channel;
-		if (chan.guild.available && (chan.type == 'text')) {
+		if (chan.guild.available && chan.type == 'text') {
 			this.client.provider.set(msg.guild, 'freeChannel', chan.id);
-			return msg.channel.send(`Les messages à propos des jeux gratuits seront maintenant envoyés dans le salon ${chan}.`);
+			return msg.channel.send(
+				`Les messages à propos des jeux gratuits seront maintenant envoyés dans le salon ${chan}.`
+			);
 		}
 	}
 };

@@ -1,13 +1,15 @@
-const commando = require('discord.js-commando');
+const { Command } = require('discord.js-commando');
 
-module.exports = class SetAdmin extends commando.Command {
+module.exports = class SetAdmin extends (
+	Command
+) {
 	constructor(client) {
 		super(client, {
 			name: 'setadmin',
 			aliases: ['sa'],
 			group: 'autres',
 			memberName: 'setadmin',
-			description: 'Permet de mettre quelqu\'un admin sur le serveur',
+			description: "Permet de mettre quelqu'un admin sur le serveur",
 			examples: ['setadmin @User#1234'],
 			guildOnly: true,
 			hidden: true,
@@ -23,6 +25,8 @@ module.exports = class SetAdmin extends commando.Command {
 	}
 
 	async run(msg, args) {
-		return msg.channel.send(`${msg.author}, tu es ? T'as cru que tu pouvais modifier les perms de n'importe qui comme ça ?`);
+		return msg.channel.send(
+			`${msg.author}, tu es ? T'as cru que tu pouvais modifier les perms de n'importe qui comme ça ?`
+		);
 	}
 };

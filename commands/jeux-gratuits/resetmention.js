@@ -1,7 +1,9 @@
-const commando = require('discord.js-commando');
+const { Command } = require('discord.js-commando');
 const sqlite = require('sqlite');
 
-module.exports = class SetRole extends commando.Command {
+module.exports = class SetRole extends (
+	Command
+) {
 	constructor(client) {
 		super(client, {
 			name: 'resetmention',
@@ -17,6 +19,8 @@ module.exports = class SetRole extends commando.Command {
 
 	async run(msg) {
 		this.client.provider.remove(msg.guild, 'mentionRole');
-		msg.channel.send('Il n\'y a maintenant plus de mention devant les messages du bot.');
+		msg.channel.send(
+			"Il n'y a maintenant plus de mention devant les messages du bot."
+		);
 	}
 };

@@ -1,13 +1,22 @@
-const commando = require('discord.js-commando');
+const { Command } = require('discord.js-commando');
 
-module.exports = class DebugSendAnnouncement extends commando.Command {
+module.exports = class DebugSendAnnouncement extends (
+	Command
+) {
 	constructor(client) {
 		super(client, {
 			name: 'debugsendannouncement',
-			aliases: ['debugannouncement', 'dsendannouncement', 'dsa', 'debugsenda', 'dsenda'],
+			aliases: [
+				'debugannouncement',
+				'dsendannouncement',
+				'dsa',
+				'debugsenda',
+				'dsenda',
+			],
 			group: 'jeux-gratuits',
 			memberName: 'debugsendannouncement',
-			description: 'Commande utilisée pour envoyer une anonce debug (Owner Only)',
+			description:
+				'Commande utilisée pour envoyer une anonce debug (Owner Only)',
 			examples: ['debugsendannouncement [message]'],
 			clientPermissions: ['MENTION_EVERYONE'],
 			guarded: true,
@@ -18,7 +27,7 @@ module.exports = class DebugSendAnnouncement extends commando.Command {
 				{
 					key: 'channel',
 					label: 'channelID',
-					prompt: 'Quel est l\'id du channel?',
+					prompt: "Quel est l'id du channel?",
 					type: 'string',
 				},
 				{
