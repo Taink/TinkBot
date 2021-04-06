@@ -1,4 +1,5 @@
-const { Command } = require('discord.js-commando');
+const { Role } = require('discord.js');
+const { Command, CommandMessage } = require('discord.js-commando');
 
 module.exports = class SetRole extends (
 	Command
@@ -29,14 +30,15 @@ module.exports = class SetRole extends (
 		});
 	}
 
+	/**
+	 * @param {CommandMessage} msg
+	 */
 	async run(msg, args) {
+		/**
+		 * @type {Role}
+		 */
 		const role = args.role;
-		if (role.mentionable) {
-			this.client.provider.set(msg.guild, 'mentionRole', `${role}`);
-			return msg.channel.send(
-				`Le rôle \`${role.name}\` sera maintenant mentionné quand un jeu gratuit est disponible.`
-			);
-		} else if (role == '@everyone') {
+		if (role.mentionable || (role.guild.available && role.guild.me.permissions.has('MENTION_EVERYONE'))) {
 			this.client.provider.set(msg.guild, 'mentionRole', `${role}`);
 			return msg.channel.send(
 				`Le rôle \`${role.name}\` sera maintenant mentionné quand un jeu gratuit est disponible.`

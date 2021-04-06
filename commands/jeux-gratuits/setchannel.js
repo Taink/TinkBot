@@ -1,4 +1,5 @@
-const { Command } = require('discord.js-commando');
+const { TextChannel } = require('discord.js');
+const { Command, CommandMessage } = require('discord.js-commando');
 
 module.exports = class SetChannel extends (
 	Command
@@ -24,19 +25,27 @@ module.exports = class SetChannel extends (
 						'Dans quel salon voulez-vous envoyer les messages relatifs aux jeux gratuits ?',
 					error:
 						"L'argument spécifié n'est pas un salon valide ! Veuillez en spécifier un.",
-					type: 'channel',
+					type: 'text-channel|news-channel',
 				},
 			],
 		});
 	}
 
+	/**
+	 * @param {CommandMessage} msg
+	 */
 	async run(msg, args) {
+		/**
+		 * @type {TextChannel}
+		 */
 		const chan = args.channel;
-		if (chan.guild.available && chan.type == 'text') {
-			this.client.provider.set(msg.guild, 'freeChannel', chan.id);
+		if (chan.guild.available) {
+			this.client.provider.set(chan.guild, 'freeChannel', chan.id);
 			return msg.channel.send(
 				`Les messages à propos des jeux gratuits seront maintenant envoyés dans le salon ${chan}.`
 			);
+		} else {
+			msg.channel.send('Une erreur est survenue! Go contacter Taink#9231 pour lui expliquer le problème');
 		}
 	}
 };
