@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const parseLink = require('../../src/parselink.js');
 const { oneLineCommaLists } = require('common-tags');
+const { Guild } = require('discord.js');
 
 module.exports = class SendMessage extends (
 	Command
@@ -34,22 +35,22 @@ module.exports = class SendMessage extends (
 	}
 
 	async run(msg, args) {
-		const embeds = new Array();
+		const embeds = [];
 
 		args.links.forEach((link) => {
 			embeds.push(parseLink(link));
 		});
 
-		this.client.guilds.forEach((guild) => {
+		this.client.guilds.cache.forEach((guild) => {
 			if (guild.available) {
-				const chan = this.client.channels.get(
+				const chan = guild.channels.cache.get(
 					this.client.provider.get(
 						guild,
 						'freeChannel',
 						guild.systemChannelID
 					)
 				);
-				const condition = embeds.length > 1;
+				const several = embeds.length > 1;
 				let mention = this.client.provider.get(
 					guild,
 					'mentionRole',
@@ -60,13 +61,13 @@ module.exports = class SendMessage extends (
 				try {
 					chan.send(
 						oneLineCommaLists`
-						${mention}Nouveau${condition ? 'x' : ''}
-						jeu${condition ? 'x' : ''}
-						gratuit${condition ? 's' : ''}
-						disponible${condition ? 's' : ''}
-						${condition ? 'aux' : 'à'}
-						${condition ? 'adresses' : "l'adresse"}
-						suivante${condition ? 's' : ''} :
+						${mention}Nouveau${several ? 'x' : ''}
+						jeu${several ? 'x' : ''}
+						gratuit${several ? 's' : ''}
+						disponible${several ? 's' : ''}
+						${several ? 'aux' : 'à'}
+						${several ? 'adresses' : "l'adresse"}
+						suivante${several ? 's' : ''} :
 						${args.links}`,
 						embeds[0]
 					)

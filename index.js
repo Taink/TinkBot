@@ -1,9 +1,9 @@
 const cfg = require('./cfg/bot.json');
-const commando = require('discord.js-commando');
+const Commando = require('discord.js-commando');
 const path = require('path');
 const oneLine = require('common-tags').oneLine;
 const sqlite = require('sqlite');
-const client = new commando.Client({
+const client = new Commando.Client({
 	owner: '277518283576705034',
 	prefix: 't!',
 	unknownCommandResponse: false,
@@ -18,13 +18,13 @@ client
 	})
 	.on('ready', () => {
 		console.log(`Bot launched as ${client.user.tag} (${client.user.id})`);
-		console.log(`Current server count: ${client.guilds.size}`);
-		client.user.setPresence({ game: { name: `présent sur ${client.guilds.size} serveurs, such wow` }, status: 'online' });
+		console.log(`Current server count: ${client.guilds.cache.size}`);
+		client.user.setPresence({ game: { name: `présent sur ${client.guilds.cache.size} serveurs, such wow` }, status: 'online' });
 	})
 	.on('disconnect', () => { console.warn('Disconnected!'); })
 	.on('reconnecting', () => { console.warn('Reconnecting...'); })
 	.on('commandError', (cmd, err) => {
-		if(err instanceof commando.FriendlyError) return;
+		if(err instanceof Commando.FriendlyError) return;
 		console.error(`Error in command ${cmd.groupID}:${cmd.memberName}`, err);
 	})
 	.on('commandBlocked', (msg, reason) => {
@@ -58,20 +58,20 @@ client
 			Joining new server
 			(${guild.name}),
 			refreshing server count...
-			(${client.guilds.size})
+			(${client.guilds.cache.size})
 		`);
 		client.user.setPresence({
 			status: 'online',
 			afk: false,
 			game: {
-				name: `${client.guilds.size} serveurs, such wow`,
+				name: `${client.guilds.cache.size} serveurs, such wow`,
 				type: 'WATCHING',
 			},
 		}).then(console.log).catch(console.error);
 	});
 
 client.setProvider(
-	sqlite.open(path.join(__dirname, 'database.sqlite3')).then(db => new commando.SQLiteProvider(db)),
+	sqlite.open(path.join(__dirname, 'database.sqlite3')).then(db => new Commando.SQLiteProvider(db)),
 ).catch(console.error);
 
 client.registry
@@ -81,6 +81,7 @@ client.registry
 		['util', 'Utils'],
 	])
 	.registerDefaultTypes()
+	.registerType(require('./types/news-channel'))
 	.registerDefaultCommands({
 		help: true,
 		prefix: true,

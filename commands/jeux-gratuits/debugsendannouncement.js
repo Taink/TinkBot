@@ -1,3 +1,4 @@
+const { TextChannel } = require('discord.js');
 const { Command } = require('discord.js-commando');
 
 module.exports = class DebugSendAnnouncement extends (
@@ -28,7 +29,7 @@ module.exports = class DebugSendAnnouncement extends (
 					key: 'channel',
 					label: 'channelID',
 					prompt: "Quel est l'id du channel?",
-					type: 'string',
+					type: 'text-channel',
 				},
 				{
 					key: 'message',
@@ -42,9 +43,14 @@ module.exports = class DebugSendAnnouncement extends (
 	}
 
 	async run(msg, args) {
-		const id = args.channel;
+		/**
+		 * @type {string}
+		 */
 		const mes = args.message;
-		const chan = this.client.channels.get(id);
+		/**
+		 * @type {TextChannel}
+		 */
+		const chan = args.channel;
 		chan.send(mes);
 	}
 };

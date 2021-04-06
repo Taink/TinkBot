@@ -30,9 +30,9 @@ module.exports = class SendAnnouncement extends (
 
 	async run(msg, args) {
 		const mes = args.message;
-		this.client.guilds.map((__snflk, guild) => {
+		this.client.guilds.cache.forEach((guild) => {
 			if (guild.available) {
-				const chan = this.client.channels.get(
+				const chan = guild.channels.cache.get(
 					this.client.provider.get(
 						guild,
 						'freeChannel',

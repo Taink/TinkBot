@@ -47,15 +47,15 @@ module.exports = class DebugSendMessage extends (
 	}
 
 	async run(msg, args) {
-		const guild = this.client.guilds.get(args.id);
-		const embeds = new Array();
+		const guild = await this.client.guilds.fetch(args.id);
+		const embeds = [];
 
 		args.links.forEach((link) => {
 			embeds.push(parseLink(link));
 		});
 
 		if (guild.available) {
-			const chan = this.client.channels.get(
+			const chan = guild.channels.cache.get(
 				this.client.provider.get(
 					guild,
 					'freeChannel',

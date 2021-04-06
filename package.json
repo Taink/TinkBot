@@ -29,8 +29,8 @@
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
-		"discord.js": "^11.5.1",
-		"discord.js-commando": "^0.10.0",
+		"discord.js": "^12.5.3",
+		"discord.js-commando": "github:discordjs/Commando",
 		"sqlite": "^2.0.0",
 		"sqlite3": "^4.2.0"
 	},
